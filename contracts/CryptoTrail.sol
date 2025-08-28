@@ -44,4 +44,23 @@ contract CryptoTrail {
         require(msg.sender == admin, "Only admin can update");
         admin = newAdmin;
     }
+function getTransactionsBySender(address _sender) external view returns (TransactionRecord[] memory) {
+    uint count;
+    for (uint i = 0; i < records.length; i++) {
+        if (records[i].sender == _sender) {
+            count++;
+        }
+    }
+
+    TransactionRecord[] memory result = new TransactionRecord[](count);
+    uint index;
+    for (uint i = 0; i < records.length; i++) {
+        if (records[i].sender == _sender) {
+            result[index] = records[i];
+            index++;
+        }
+    }
+    return result;
+}
+
 }
