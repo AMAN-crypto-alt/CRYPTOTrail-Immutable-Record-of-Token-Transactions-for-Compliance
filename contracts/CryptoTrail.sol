@@ -62,5 +62,13 @@ function getTransactionsBySender(address _sender) external view returns (Transac
     }
     return result;
 }
+function deleteTransaction(uint index) external {
+    require(msg.sender == admin, "Only admin can delete");
+    require(index < records.length, "Invalid index");
+
+    records[index] = records[records.length - 1]; // replace with last
+    records.pop(); // remove last
+}
+
 
 }
