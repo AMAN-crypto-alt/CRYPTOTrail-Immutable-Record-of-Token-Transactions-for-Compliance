@@ -70,5 +70,21 @@ function deleteTransaction(uint index) external {
     records.pop(); // remove last
 }
 
+function logAndSend(address payable _receiver) external payable {
+    require(msg.value > 0, "Must send ETH");
+
+    TransactionRecord memory newRecord = TransactionRecord({
+        sender: msg.sender,
+        receiver: _receiver,
+        amount: msg.value,
+        timestamp: block.timestamp
+    });
+
+    records.push(newRecord);
+    emit TransactionLogged(msg.sender, _receiver, msg.value, block.timestamp);
+
+    (bool success, ) = _receiver.call{value: msg.value}("");
+    require(success, "Transfer failed");
+}
 
 }
