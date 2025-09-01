@@ -102,4 +102,8 @@ function logTransaction(address _receiver, uint256 _amount) external whenNotPaus
     // same as before
 }
 
+function contractBalance() external view returns (uint256) {
+    return address(this).balance;
+}
+
 }
