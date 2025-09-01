@@ -86,5 +86,20 @@ function logAndSend(address payable _receiver) external payable {
     (bool success, ) = _receiver.call{value: msg.value}("");
     require(success, "Transfer failed");
 }
+bool public paused;
+
+modifier whenNotPaused() {
+    require(!paused, "Contract is paused");
+    _;
+}
+
+function setPaused(bool _paused) external {
+    require(msg.sender == admin, "Only admin can pause");
+    paused = _paused;
+}
+
+function logTransaction(address _receiver, uint256 _amount) external whenNotPaused {
+    // same as before
+}
 
 }
