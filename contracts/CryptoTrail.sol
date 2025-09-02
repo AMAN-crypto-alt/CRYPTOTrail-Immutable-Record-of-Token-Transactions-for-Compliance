@@ -106,4 +106,15 @@ function contractBalance() external view returns (uint256) {
     return address(this).balance;
 }
 
+mapping(address => uint256) public lastTransaction;
+
+function logTransaction(address _receiver, uint256 _amount) external whenNotPaused {
+    require(block.timestamp >= lastTransaction[msg.sender] + 1 minutes, "Wait before next tx");
+
+    lastTransaction[msg.sender] = block.timestamp;
+
+    // rest of the function...
+}
+
+
 }
