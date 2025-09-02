@@ -116,5 +116,20 @@ function logTransaction(address _receiver, uint256 _amount) external whenNotPaus
     // rest of the function...
 }
 
+mapping(address => uint256[]) public transactionsBySender;
+
+function logTransaction(address _receiver, uint256 _amount) external whenNotPaused {
+    TransactionRecord memory newRecord = TransactionRecord({
+        sender: msg.sender,
+        receiver: _receiver,
+        amount: _amount,
+        timestamp: block.timestamp
+    });
+
+    records.push(newRecord);
+    transactionsBySender[msg.sender].push(records.length - 1); // index of tx
+}
+
+
 
 }
