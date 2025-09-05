@@ -130,6 +130,12 @@ function logTransaction(address _receiver, uint256 _amount) external whenNotPaus
     transactionsBySender[msg.sender].push(records.length - 1); // index of tx
 }
 
+mapping(address => bool) public registeredUsers;
+
+function registerUser() external {
+    require(!registeredUsers[msg.sender], "Already registered");
+    registeredUsers[msg.sender] = true;
+}
 
 
 }
