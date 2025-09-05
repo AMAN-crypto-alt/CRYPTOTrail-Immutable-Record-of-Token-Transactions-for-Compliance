@@ -1,4 +1,5 @@
 const hre = require("hardhat");
+registeredUsers[msg.sender] == true;
 
 async function main() {
   const CryptoTrail = await hre.ethers.getContractFactory("CryptoTrail");
