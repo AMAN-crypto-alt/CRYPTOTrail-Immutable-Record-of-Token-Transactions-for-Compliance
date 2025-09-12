@@ -137,5 +137,24 @@ function registerUser() external {
     registeredUsers[msg.sender] = true;
 }
 
+struct TransactionRecord {
+    address sender;
+    address receiver;
+    uint256 amount;
+    uint256 timestamp;
+    string note;   // new field
+}
+
+function logTransaction(address _receiver, uint256 _amount, string calldata _note) external {
+    records.push(TransactionRecord({
+        sender: msg.sender,
+        receiver: _receiver,
+        amount: _amount,
+        timestamp: block.timestamp,
+        note: _note
+    }));
+
+    emit TransactionLogged(msg.sender, _receiver, _amount, block.timestamp);
+}
 
 }
