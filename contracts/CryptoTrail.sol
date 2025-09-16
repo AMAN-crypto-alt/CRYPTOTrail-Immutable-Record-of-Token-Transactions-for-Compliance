@@ -156,5 +156,16 @@ function logTransaction(address _receiver, uint256 _amount, string calldata _not
 
     emit TransactionLogged(msg.sender, _receiver, _amount, block.timestamp);
 }
+mapping(address => bool) public blacklisted;
+
+function setBlacklist(address user, bool status) external {
+    require(msg.sender == admin, "Only admin can blacklist");
+    blacklisted[user] = status;
+}
+
+modifier notBlacklisted() {
+    require(!blacklisted[msg.sender], "You are blacklisted");
+    _;
+}
 
 }
