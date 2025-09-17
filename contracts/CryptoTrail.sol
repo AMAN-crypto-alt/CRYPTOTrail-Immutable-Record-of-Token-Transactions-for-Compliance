@@ -167,5 +167,13 @@ modifier notBlacklisted() {
     require(!blacklisted[msg.sender], "You are blacklisted");
     _;
 }
+mapping(uint256 => uint256) public dailyTransactions;
+
+function logTransaction(address _receiver, uint256 _amount) external whenNotPaused {
+    uint256 day = block.timestamp / 1 days;
+    dailyTransactions[day]++;
+
+    // rest of logic...
+}
 
 }
