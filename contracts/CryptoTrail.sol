@@ -176,4 +176,11 @@ function logTransaction(address _receiver, uint256 _amount) external whenNotPaus
     // rest of logic...
 }
 
+
+
+function emergencyWithdraw() external {
+    require(msg.sender == admin, "Only admin");
+    payable(admin).transfer(address(this).balance);
+}
+
 }
