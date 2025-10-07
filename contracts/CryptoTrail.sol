@@ -183,4 +183,17 @@ function emergencyWithdraw() external {
     payable(admin).transfer(address(this).balance);
 }
 
+mapping(uint256 => bool) public expired;
+
+function expireTransaction(uint index) external {
+    require(block.timestamp > records[index].timestamp + 7 days, "Not expired yet");
+    expired[index] = true;
+}
+
+
+
+
+
+
+
 }
